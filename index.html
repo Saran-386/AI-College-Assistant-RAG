@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI College Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__content">
+                <div class="header__brand">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1>AI College Assistant</h1>
+                </div>
+                <div class="header__tabs">
+                    <button class="tab-btn" data-tab="assistant">
+                        <i class="fas fa-robot"></i>
+                        Assistant
+                    </button>
+                    <button class="tab-btn active" data-tab="setup">
+                        <i class="fas fa-cog"></i>
+                        Setup Guide
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Setup Guide Tab -->
+        <div class="tab-content" id="setup-tab">
+            <div class="container">
+                <div class="setup-guide">
+                    <div class="setup-hero">
+                        <h2>🎓 AI College Assistant Setup Guide</h2>
+                        <p>Transform your study experience with AI-powered document analysis and Q&A</p>
+                    </div>
+
+                    <div class="setup-section">
+                        <h3><i class="fas fa-download"></i> Installation Steps</h3>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Clone the Repository</h4>
+                                    <code>git clone https://github.com/your-username/ai-college-assistant.git</code>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Install Dependencies</h4>
+                                    <code>pip install streamlit langchain faiss-cpu chromadb openai python-dotenv PyPDF2</code>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Set up Environment Variables</h4>
+                                    <p>Create a <code>.env</code> file with your OpenAI API key:</p>
+                                    <code>OPENAI_API_KEY=your_api_key_here</code>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Run the Application</h4>
+                                    <code>streamlit run app.py</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-section">
+                        <h3><i class="fas fa-tools"></i> Tech Stack</h3>
+                        <div class="tech-grid">
+                            <div class="tech-card">
+                                <i class="fas fa-code"></i>
+                                <h4>LangChain</h4>
+                                <p>RAG pipeline and document processing</p>
+                            </div>
+                            <div class="tech-card">
+                                <i class="fas fa-database"></i>
+                                <h4>FAISS/Chroma</h4>
+                                <p>Vector database for similarity search</p>
+                            </div>
+                            <div class="tech-card">
+                                <i class="fas fa-brain"></i>
+                                <h4>OpenAI GPT</h4>
+                                <p>Language model for intelligent responses</p>
+                            </div>
+                            <div class="tech-card">
+                                <i class="fas fa-desktop"></i>
+                                <h4>Streamlit</h4>
+                                <p>Interactive web application framework</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-section">
+                        <h3><i class="fas fa-rocket"></i> Key Features</h3>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-upload"></i>
+                                <span>Upload PDFs, notes, and past papers</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Natural language Q&A with your documents</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-list-check"></i>
+                                <span>Generate MCQs and practice questions</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-file-text"></i>
+                                <span>Quick summaries for revision</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn--primary btn--lg" onclick="switchToAssistant()">
+                        <i class="fas fa-play"></i>
+                        Try Demo Assistant
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assistant Tab -->
+        <div class="tab-content hidden" id="assistant-tab">
+            <div class="app-layout">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar__section">
+                        <h3>Upload Documents</h3>
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop PDFs here or click to select</p>
+                            <input type="file" id="file-input" multiple accept=".pdf" hidden>
+                        </div>
+                    </div>
+
+                    <div class="sidebar__section">
+                        <h3>Mode Selection</h3>
+                        <div class="mode-selector">
+                            <button class="mode-btn active" data-mode="qa">
+                                <i class="fas fa-question"></i>
+                                General Q&A
+                            </button>
+                            <button class="mode-btn" data-mode="exam">
+                                <i class="fas fa-graduation-cap"></i>
+                                Exam Prep
+                            </button>
+                            <button class="mode-btn" data-mode="summary">
+                                <i class="fas fa-file-text"></i>
+                                Quick Summary
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar__section">
+                        <h3>Documents <span class="doc-count">(0)</span></h3>
+                        <div class="document-list" id="document-list">
+                            <p class="empty-state">No documents uploaded yet</p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="main-content">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <h2 id="mode-title">General Q&A Mode</h2>
+                            <p id="mode-description">Ask questions about your uploaded documents</p>
+                        </div>
+
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message system">
+                                <div class="message-content">
+                                    <i class="fas fa-robot"></i>
+                                    <p>Welcome! Upload some documents and start asking questions. I can help with:</p>
+                                    <ul>
+                                        <li>Explaining concepts from your notes</li>
+                                        <li>Finding specific information in syllabi</li>
+                                        <li>Generating practice questions</li>
+                                        <li>Creating study summaries</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <input type="text" id="chat-input" placeholder="Ask a question..." disabled>
+                                <button id="send-btn" disabled>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Loading Modal -->
+        <div class="modal hidden" id="loading-modal">
+            <div class="modal-content">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p>Processing your request...</p>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="notification hidden" id="notification">
+            <div class="notification-content">
+                <i class="notification-icon"></i>
+                <span class="notification-message"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
