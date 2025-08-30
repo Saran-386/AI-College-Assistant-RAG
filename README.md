@@ -326,7 +326,3 @@ You now have a **production-ready** AI College Assistant that demonstrates:
 - Multiple AI interaction modes
 - Professional UI/UX
 - Scalable architecture
-
-```
-
-```
