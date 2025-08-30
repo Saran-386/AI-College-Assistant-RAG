@@ -126,21 +126,7 @@ The app will open in your browser at `http://localhost:8501`
 
 ## 🤖 Using Google AI (Gemini)
 
-Instead of OpenAI, this app uses Google Gemini models. To switch from OpenAI to Google AI:
-
-- **_Code changes_**:  
-  Replace:
-
-```
-
-from langchain_openai import ChatOpenAI
-llm = ChatOpenAI(model=MODEL_NAME, temperature=TEMPERATURE)
-
-```
-
-With:
-
-```
+This app uses Google Gemini models:
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", temperature=TEMPERATURE, google_api_key=os.getenv("GOOGLE_API_KEY"))
@@ -170,22 +156,22 @@ Use the **sidebar settings** to tune the system:
 
 ### For Judges:
 
-1. **Upload a syllabus PDF**  
+1. **Upload a syllabus PDF**
    Show: "Computer Science Syllabus.pdf uploaded ✅"
 
-2. **Ask: "What topics are in Unit 2?"**  
+2. **Ask: "What topics are in Unit 2?"**
    Show: AI highlights IoT architecture, sensors, protocols with page citations
 
-3. **Upload past year question paper**  
+3. **Upload past year question paper**
    Show: "Past_Papers_2023.pdf processed ✅"
 
-4. **Ask: "Give me all questions related to Hill Cipher"**  
+4. **Ask: "Give me all questions related to Hill Cipher"**
    Show: AI extracts relevant crypto questions with page numbers
 
-5. **Switch to MCQ tab, enter "IoT"**  
+5. **Switch to MCQ tab, enter "IoT"**
    Show: AI generates 5 exam-style MCQs with answers
 
-6. **Switch to Summary tab, ask for "Unit 3 summary"**  
+6. **Switch to Summary tab, ask for "Unit 3 summary"**
    Show: 5-point revision summary with sources
 
 ### Key Demo Points:
@@ -300,12 +286,12 @@ gcloud auth application-default login
 ```
 
 ai-college-assistant/
-├── app.py              \# Main Streamlit application
-├── requirements.txt    \# Python dependencies
-├── README.md          \# This setup guide
-├── .env               \# Environment variables (optional)
-├── .gitignore         \# Git ignore file
-└── rag_index/         \# Persistent vector index (auto-created)
+├── app.py \# Main Streamlit application
+├── requirements.txt \# Python dependencies
+├── README.md \# This setup guide
+├── .env \# Environment variables (optional)
+├── .gitignore \# Git ignore file
+└── rag_index/ \# Persistent vector index (auto-created)
 ├── index.faiss
 └── index.pkl
 
@@ -338,3 +324,4 @@ You now have a **production-ready** AI College Assistant that demonstrates:
 - Multiple AI interaction modes
 - Professional UI/UX
 - Scalable architecture
+```
