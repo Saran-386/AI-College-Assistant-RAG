@@ -136,7 +136,7 @@ SUMMARY_PROMPT = ChatPromptTemplate.from_messages([
 # LLM Init
 # -----------------------------
 
-GOOGLE_API_KEY="AIzaSyCfClMIuggLaOuaE07oLHI5dFVWxgO2pmc"
+GOOGLE_API_KEY="your-api-key"
 if not GOOGLE_API_KEY:
     st.warning("OpenAI API key not set. Set GOOGLE_API_KEY env var to enable answers.")
     
