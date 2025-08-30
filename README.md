@@ -128,6 +128,8 @@ The app will open in your browser at `http://localhost:8501`
 
 This app uses Google Gemini models:
 
+```
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", temperature=TEMPERATURE, google_api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -324,4 +326,7 @@ You now have a **production-ready** AI College Assistant that demonstrates:
 - Multiple AI interaction modes
 - Professional UI/UX
 - Scalable architecture
+
+```
+
 ```
